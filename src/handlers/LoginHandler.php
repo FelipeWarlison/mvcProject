@@ -4,26 +4,24 @@ use \src\models\Usuario;
 
 class LoginHandler {
 
-	public static function checkLogin() {
-		if(!empty($_SESSION['token'])) {
+public static function checkLogin() {
 
-			$token = $_SESSION['token'];
-
-			$data = Usuario::select()->where('token', $token)->execute();
-
-			if(count($data) > 0) {
-
-				$loggedUsuario = new Usuario();
-				$loggedUsuario->id = $data['id'];
-                $loggedUsuario->email = $data['email'];
-                $loggedUsuario->name = $data['name'];
-				
-				return $loggedUsuario;
-			}
-		} 
-		
-		return false;
-	}
+ if(!empty($_SESSION['token'])) {
+      $token = $_SESSION['token'];
+      $data = Usuario::select()->where('token',$token)->execute();
+      $dat = $data[0]; 
+ 
+      if($dat && count($dat) > 0) {
+          $loggedUser = new Usuario();
+          $loggedUser->id = $dat['id'];
+          $loggedUser->name = $dat['name'];
+          $loggedUser->email = $dat['email'];
+ 
+          return $loggedUser;
+       } 
+   }
+   return false;
+ }
 
 	public static function verifyLogin($email, $password) {
 

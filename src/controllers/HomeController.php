@@ -6,17 +6,18 @@ use \src\handlers\LoginHandler;
 
 class HomeController extends Controller {
 
-	private $loggedUsuario;
+	private $loggedUser;
 
 	public function __construct() {
-		$this->$loggedUsuario = LoginHandler::checkLogin();
+		$this->$loggedUser = LoginHandler::checkLogin();
 
-        if($this->$loggedUsuario === false) {
+        if($this->$loggedUser === false) {
             $this->redirect('/login');
         }
 	}
 
     public function index() {
+        $this->loggedUser->name;
         $this->render('home', ['usuarios' => 'Felipe']);
     }
 
